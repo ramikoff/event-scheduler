@@ -1,30 +1,39 @@
 import { useEffect, useState } from "react";
 import Card from "../components/Card";
+import axios from "axios";
 
 const Home = () => {
   const [events, setEvents] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const savedEvents = localStorage.getItem("events")
-      ? JSON.parse(localStorage.getItem("events"))
-      : [];
-    setEvents(savedEvents);
+    const fetchEvents = async () => {
+      setLoading(true);
+      try {
+        const response = await axios.get(`http://localhost:3001/api/events`);
+
+        console.log(response.data.results);
+        setEvents(response.data.results);
+      } catch (error) {
+        console.error("error fetching events: ", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchEvents();
   }, []);
-
-  useEffect(() => {
-    if (events.length > 0) {
-      localStorage.setItem("events", JSON.stringify(events));
-    }
-  }, [events]);
 
   return (
     <div className="container mx-auto flex flex-col items-center">
       <h1 className="text-center text-3xl">Home Page</h1>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-12 mt-6">
-        {events.map((event, index) => {
-          const eventId = index + 1;
-          return <Card key={eventId} id={eventId} event={event} />;
-        })}
+        {loading ? (
+          <p>Loading...</p>
+        ) : (
+          events.map((event, index) => {
+            return <Card key={event.id} id={event.id} event={event} />;
+          })
+        )}
       </div>
     </div>
   );
