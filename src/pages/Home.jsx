@@ -31,7 +31,7 @@ const Home = () => {
           <p>Loading...</p>
         ) : (
           events.map((event, index) => {
-            return <Card key={event.id} id={event.id} event={event} />;
+            return <Card key={event.id} event={event} />;
           })
         )}
       </div>
