@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import axios from "axios";
 
 const SignUp = () => {
   const [email, setEmail] = useState("");
@@ -45,24 +46,17 @@ const SignUp = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if (!validateForm()) return; // Stop if validation fails
+    if (!validateForm()) return;
 
     try {
-      // Send registration request to the local API server
-      const response = await fetch("http://localhost:3001/api/users", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ email, password }),
+      // Send registration post request using Axios
+      const response = await axios.post("http://localhost:3001/api/users", {
+        email,
+        password,
       });
 
-      if (!response.ok) {
-        throw new Error("Failed to register");
-      }
-
-      console.log("User registered successfully");
-      navigate("/login"); // Redirect to login page after successful registration
+      console.log("User registered successfully", response.data);
+      navigate("/login"); // Redirect to login page
     } catch (err) {
       setErrors((prev) => ({
         ...prev,
