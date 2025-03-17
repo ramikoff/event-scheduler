@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 
 const Card = ({ event }) => {
   return (
-    <div className="card w-96 bg-base-100 card-xl shadow-xl">
+    <div className="card w-96 bg-base-100 card-xl shadow-xl font-sans">
       <div className="card-body">
         <span>{event.date}</span>
         <h2 className="card-title">{event.title}</h2>
