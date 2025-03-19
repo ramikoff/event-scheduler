@@ -37,11 +37,13 @@ const EventDetails = () => {
           <span className="loading loading-spinner loading-xl"></span>
         </>
       ) : event ? (
-        <>
-          <span>{event.date}</span>
-          <div>{event.title}</div>
-          <div>{event.description}</div>
-        </>
+        <div className="container card w-full bg-base-100 card-xl mx-auto mt-8">
+          <div className="card-body">
+            <span>{event.date}</span>
+            <div className="card-title">{event.title}</div>
+            <div>{event.description}</div>
+          </div>
+        </div>
       ) : (
         <p>No event found</p>
       )}

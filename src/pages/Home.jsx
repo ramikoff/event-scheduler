@@ -24,9 +24,9 @@ const Home = () => {
   }, []);
 
   return (
-    <div className="container mx-auto flex flex-col items-center">
-      <h1 className="text-center text-3xl">Home Page</h1>
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-12 mt-6">
+    <div className="container mx-auto flex flex-col lg:items-center px-4">
+      <h1 className="text-center text-3xl font-bold my-8">Event Scheduler</h1>
+      <div className="grid grid-cols-1  lg:grid-cols-2  xl:grid-cols-3 gap-6 md:gap-12 mt-6 mx-2 lg:mx-8">
         {loading ? (
           <>
             <span className="loading loading-spinner loading-xs"></span>
