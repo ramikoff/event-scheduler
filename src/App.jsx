@@ -4,7 +4,8 @@ import Home from "./pages/Home";
 import NewEvent from "./pages/NewEvent";
 import ProtectedRoute from "./components/ProtectedRoute";
 import Login from "./pages/Login";
-import Event from "./pages/Event";
+import SignUp from "./pages/SignUp";
+import EventDetails from "./pages/EventDetails";
 
 function App() {
   return (
@@ -18,7 +19,10 @@ function App() {
             </ProtectedRoute>
             } />
           <Route path="/login" element={<Login />}/>
-            <Route path="/event/:id" element={<Event />}/>
+            
+          <Route path="event/:id" element={<EventDetails />} />
+          
+          <Route path="sign-up" element={<SignUp />} />
           <Route path="*" element={<h2>NotFound</h2>} />
         </Route>
       </Routes>
