@@ -19,24 +19,54 @@ function Login() {
     if(!loginSuccess){
       setLoginFailed(true);
     } else {
-      navigate("/new");
+      navigate(-1);
     }
   }
   return (
-    <div>
-      <h2>Sie müssen sich einloggen, um neue Events anzulegen.</h2>
+      <div className="flex flex-col items-center justify-center min-h-screen">
+        <h1 className="text-2xl font-bold mb-4">Login</h1>
+        <h2 className="text-m font-bold mb-4">You must be logged in to create new Events!</h2>
+        <form onSubmit={handleSubmit} className="space-y-4 w-80 md:w-96">
+          {/* Email Input */}
+          <div>
+            <input
+              type="email"
+              name="user"
+              placeholder="Email"
+              className={`input input-bordered w-full`}            
+              onChange={(e) => setUserInput(e.target.value)}
+            />
+          </div>
 
-      {loginFailed && (<p className="text-red-800">Login fehlgeschlagen!</p>)}
-      <form onSubmit={handleSubmit}>
-        <input type="text" name="user" onChange={(e)=>setUserInput(e.target.value)} placeholder="Email"/>
-        <input type="password" name="password" onChange={(e)=>setPasswordInput(e.target.value)} placeholder="Passwort"/>
-        <button type="submit">Login</button>
-      </form>
-      <div>
-        <p>Noch keinen Account?</p> <Link to="/signUp"> Sign Up</Link>
-      </div>
+          {/* Password Input */}
+          <div>
+            <input
+              type="password"
+              placeholder="Password"
+              className={`input input-bordered w-full `}
+              onChange={(e) => setPasswordInput(e.target.value)}
+            />          
+          </div>
 
-    </div>
+          {/* Login Error Message */}
+          {loginFailed && (
+            <p className="text-red-500 text-sm text-center">Login failed!</p>
+          )}
+
+          {/* Submit Button */}
+          <button type="submit" className="btn btn-primary w-full">
+            Login
+          </button>
+        </form>
+
+        {/* Don't have an account? Sign Up Link */}
+        <p className="mt-4 text-sm">
+          You don't have an account yet?{" "}
+          <Link to="/sign-up" className="text-blue-500 hover:underline">
+            Sign up
+          </Link>
+        </p>
+    </div>  
   )
 }
 

@@ -1,6 +1,13 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { useAuth } from "../context/AuthProvider";
 
 const NavBar = (props) => {
+   const {isLoggedIn, user, login, logout} = useAuth();
+   const navigate = useNavigate();
+   const handleLogout = async () => {
+    await logout();
+    navigate("/");
+   }
   return (
     <div className="navbar bg-base-100 shadow-sm">
       <div className="flex-1">
@@ -16,6 +23,20 @@ const NavBar = (props) => {
           <li>
             <Link to="/new">New Event</Link>
           </li>
+          {
+           isLoggedIn ? (
+           <li>
+              <Link onClick={handleLogout}>Logout</Link>
+           </li>
+            
+          ) 
+          : 
+          (
+            <li>
+                <Link to="/login">Login</Link>
+            </li>          
+          )
+          }
         </ul>
       </div>
     </div>

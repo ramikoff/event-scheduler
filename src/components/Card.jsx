@@ -4,7 +4,7 @@ const Card = ({ event }) => {
   return (
     <div className="card w-full lg:w-96 bg-base-100 card-xl shadow-xl">
       <div className="card-body">
-        <span>{event.date}</span>
+        <span>{event.date.split("T")[0]}</span>
         <h2 className="card-title">{event.title}</h2>
         <p className="line-clamp-2 w-64">{event.description}</p>
         <div className="justify-center card-actions mt-4">
