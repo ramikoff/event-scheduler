@@ -36,14 +36,14 @@ export const AuthProvider = ({ children }) => {
     
   };
 
-  const logout = () => {
+  const logout = async () => {
     try {
       localStorage.removeItem("token");
       setUser({});
       setIsLoggedIn(false);
-      navigate("/home");
+      //navigate("/home");
     } catch (error) {
-      
+      console.error(error);
     }
     
   };

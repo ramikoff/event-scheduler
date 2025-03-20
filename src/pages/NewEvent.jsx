@@ -1,14 +1,14 @@
 import { useState } from "react";
 import { useAuth } from "../context/AuthProvider";
+import { useNavigate } from "react-router-dom";
 
 const NewEvent = () => {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [location, setLocation] = useState("");
-  const [date, setDate] = useState();
-  const [time, setTime] = useState("");
-  const {isLoggedIn, user, login, logout} = useAuth;
-
+  const [date, setDate] = useState("");
+  const {isLoggedIn, user, login, logout} = useAuth();
+  const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -16,7 +16,7 @@ const NewEvent = () => {
       title : title,
       description : description,
       location : location,
-      date : date+time,
+      date : date,
       organizerId : user.id
     };
 
@@ -35,25 +35,25 @@ const NewEvent = () => {
 
       const data = await res.json();
       console.log(data);
-
+      navigate(`/event/${data.id}`);
     } catch (error) {
       console.log(error);
     }
   }
   
   return (
-    <>
-    <h2>Neues Event</h2>
+    <div className="flex flex-col items-center justify-center min-h-screen ">
+    <h1 className="text-2xl font-bold mb-4">New Event</h1>
 
-    <form onSubmit={handleSubmit} className="flex flex-col gap-4">
-      <input type="text" name="title" placeholder="Titel" onChange={(e)=>setTitle(e.target.value)} />
-      <textarea name="description" placeholder="Beschreibung" onChange={(e)=>setDescription(e.target.value)}></textarea>
-      <input type="text" name="location" placeholder="Ort" onChange={(e)=>setLocation(e.target.value)}/>
-      <label htmlFor="date">Datum <input type="date" name="date" onChange={(e)=>setDate(e.target.value)}/></label>
-      <label htmlFor="time">Uhrzeit <input type="time" name="time" onChange={(e)=>setTime(e.target.value)}/></label>
+    <form onSubmit={handleSubmit} className="flex flex-col gap-4 w-screen px-[25%]">
+      <input type="text" name="title" placeholder="Title" onChange={(e)=>setTitle(e.target.value)} className={`input input-bordered w-full`}/>
+      <textarea rows="3" name="description" placeholder="Description" onChange={(e)=>setDescription(e.target.value)} className={`textarea textarea-bordered w-full`}></textarea>
+      <input type="text" name="location" placeholder="Location" onChange={(e)=>setLocation(e.target.value)} className={`input input-bordered w-full`}/>
+      <label htmlFor="date" className="label">Date <input type="date" name="date" onChange={(e)=>setDate(e.target.value)} className={`input input-bordered w-full`}/></label>
+      <button type="submit" name="sendbutton" className="btn btn-primary w-full">Create</button>
     </form>
 
-    </>
+    </div>
   )
  
 };
