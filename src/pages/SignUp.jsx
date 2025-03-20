@@ -67,8 +67,8 @@ const SignUp = () => {
 
   return (
     <div className="flex flex-col items-center justify-center min-h-screen">
-      <h1 className="text-2xl font-bold">Sign Up</h1>
-      <form onSubmit={handleSubmit} className="space-y-4 w-80">
+      <h1 className="text-2xl font-bold mb-4">Sign Up</h1>
+      <form onSubmit={handleSubmit} className="space-y-4 w-80 md:w-96">
         {/* Email Input */}
         <div>
           <input

@@ -9,24 +9,27 @@ import EventDetails from "./pages/EventDetails";
 
 function App() {
   return (
-    <>
+    <div data-theme="mytheme">
       <Routes>
         <Route path="/" element={<MainLayout />}>
           <Route index element={<Home />} />
-          <Route path="/new" element={
-            <ProtectedRoute>
-                <NewEvent />  
-            </ProtectedRoute>
-            } />
-          <Route path="/login" element={<Login />}/>
-            
+          <Route
+            path="/new"
+            element={
+              <ProtectedRoute>
+                <NewEvent />
+              </ProtectedRoute>
+            }
+          />
+          <Route path="/login" element={<Login />} />
+
           <Route path="event/:id" element={<EventDetails />} />
-          
+
           <Route path="sign-up" element={<SignUp />} />
           <Route path="*" element={<h2>NotFound</h2>} />
         </Route>
       </Routes>
-    </>
+    </div>
   );
 }
 
