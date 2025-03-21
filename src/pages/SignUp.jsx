@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 
@@ -6,6 +6,16 @@ const SignUp = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [errors, setErrors] = useState({});
+  const [success, setSuccess] = useState(false);
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setSuccess(false);
+    }, 7000); // Hide after 7 seconds
+
+    return () => clearTimeout(timer); // Clear onUnmount
+  }, [success]);
+
   const navigate = useNavigate();
 
   // Function to validate the form inputs
@@ -55,8 +65,11 @@ const SignUp = () => {
         password,
       });
 
+      setSuccess(true);
       console.log("User registered successfully", response.data);
-      navigate("/login"); // Redirect to login page
+      setTimeout(() => {
+        navigate("/login");
+      }, 2000);
     } catch (err) {
       setErrors((prev) => ({
         ...prev,
@@ -68,6 +81,10 @@ const SignUp = () => {
   return (
     <div className="flex flex-col items-center justify-center min-h-screen">
       <h1 className="text-2xl font-bold mb-4">Sign Up</h1>
+
+      {success && (
+        <p className="text-m font-bold mb-4">User registered successfully.</p>
+      )}
       <form onSubmit={handleSubmit} className="space-y-4 w-80 md:w-96">
         {/* Email Input */}
         <div>
