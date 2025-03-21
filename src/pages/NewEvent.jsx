@@ -7,6 +7,8 @@ const NewEvent = () => {
   const [description, setDescription] = useState("");
   const [location, setLocation] = useState("");
   const [date, setDate] = useState("");
+  const [success, setSuccess] = useState(false);
+  const [error, setError] = useState({});
   const {isLoggedIn, user, login, logout} = useAuth();
   const navigate = useNavigate();
 
@@ -44,10 +46,18 @@ const NewEvent = () => {
         },
       });
 
+      if(!res.ok){
+        throw new Error(`${res.statusText}`);
+      }
       const data = await res.json();
-      console.log(data);
-      navigate(`/event/${data.id}`);
+      setError({});
+      setSuccess(true);
+      setTimeout(() => {
+        navigate(`/event/${data.id}`);
+      }, 2000);
+      
     } catch (error) {
+      setError(error);
       console.log(error);
     }
   }
@@ -55,12 +65,18 @@ const NewEvent = () => {
   return (
     <div className="flex flex-col items-center justify-center min-h-screen ">
     <h1 className="text-2xl font-bold mb-4">New Event</h1>
-
+    {success && (
+        <p className="text-m font-bold mb-4 text-green-600">New Event created successfully.</p>
+      )}
     <form onSubmit={handleSubmit} className="flex flex-col gap-4 w-screen px-[25%]">
       <input type="text" name="title" placeholder="Title" onChange={(e)=>setTitle(e.target.value)} className={`input input-bordered w-full`}/>
       <textarea rows="3" name="description" placeholder="Description" onChange={(e)=>setDescription(e.target.value)} className={`textarea textarea-bordered w-full`}></textarea>
       <input type="text" name="location" placeholder="Location" onChange={(e)=>setLocation(e.target.value)} className={`input input-bordered w-full`}/>
       <label htmlFor="date" className="label">Date <input type="date" name="date" onChange={(e)=>setDate(e.target.value)} className={`input input-bordered w-full`}/></label>
+      
+      {error.message && (
+          <p className="text-red-500 text-sm">{"An error occured while creating: "+error.message}</p>
+        )}
       <button type="submit" name="sendbutton" className="btn btn-primary w-full">Create</button>
     </form>
 

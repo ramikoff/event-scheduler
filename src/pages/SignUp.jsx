@@ -83,7 +83,7 @@ const SignUp = () => {
       <h1 className="text-2xl font-bold mb-4">Sign Up</h1>
 
       {success && (
-        <p className="text-m font-bold mb-4">User registered successfully.</p>
+        <p className="text-m font-bold mb-4 text-green-600">User registered successfully.</p>
       )}
       <form onSubmit={handleSubmit} className="space-y-4 w-80 md:w-96">
         {/* Email Input */}
