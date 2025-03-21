@@ -12,6 +12,17 @@ const NewEvent = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    const titleInput = e.target.title.value.trim();
+    const descriptionInput = e.target.description.value.trim();
+    const locationInput = e.target.location.value.trim();
+    const dateInput = e.target.date.value.trim();
+
+    if(!titleInput || !descriptionInput || !locationInput || ! dateInput) {
+      alert("All input fields are required!");
+      return;
+    }
+
+
     const newEventObject = {
       title : title,
       description : description,
